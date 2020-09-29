@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Mis Conciertos</string>
+    <string name="nombre">Nombre Artista</string>
+    <string name="fechaConcierto">Fecha</string>
+    <string name="fechaSelector">Fecha</string>
+    <string name="genero">Género Musical</string>
+    <string name="valor">Valor Entrada</string>
+    <string name="calificacion">Calificación</string>
+    <string name="agregar">Registrar</string>
+    <string name="guardadosList">Lista de Conciertos</string>
+</resources>
