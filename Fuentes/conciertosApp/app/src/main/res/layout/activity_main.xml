@@ -34,22 +34,27 @@
         android:layout_marginTop="@dimen/marginTop1"
         android:orientation="horizontal"
         android:background="@color/colorPrimary">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_weight="1"
-            android:text="@string/fechaConcierto"
-            android:textSize="@dimen/tamanioLetra1">
-        </TextView>
-        <EditText
-            android:id="@+id/fechaTxt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/fechaSelector">
 
-        </EditText>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/fechaBtn"
+            android:text="@string/fechaBoton"
+            android:layout_weight="2">
+        </Button>
+        <TextView
+            android:id="@+id/txtView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+        </TextView>
+
+
+
+
+
+
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"

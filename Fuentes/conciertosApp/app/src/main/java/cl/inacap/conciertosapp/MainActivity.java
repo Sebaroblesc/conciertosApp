@@ -16,6 +16,8 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -29,6 +31,10 @@ public class MainActivity extends AppCompatActivity {
     private TextView mDisplayDate;
     private DatePickerDialog.OnDateSetListener onDateSetListener;
 
+    TextView mTv;
+    Button mBtn;
+
+
     private EditText nombreTxt;
     private EditText fechaTxt;
     private Spinner generoSpin;
@@ -40,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
     String[] calif = {"1", "2", "3", "4", "5", "6", "7"};
     String[] generos = {"Rock", "Jazz", "Pop", "Reguetoon", "Salsa", "Metal"};
 
+    Calendar c;
+    DatePickerDialog dpd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         this.nombreTxt = findViewById(R.id.nombreTxt);
-        this.fechaTxt = findViewById(R.id.fechaTxt);
         this.generoSpin = (Spinner) findViewById(R.id.generoSpin);
         this.valorTxt = findViewById(R.id.valorTxt);
         this.notaSpin = (Spinner) findViewById(R.id.notaSpin);
@@ -62,22 +69,28 @@ public class MainActivity extends AppCompatActivity {
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         notaSpin.setAdapter(adapter2);
 
-        fechaTxt.setInputType(InputType.TYPE_NULL);
+        mTv = (TextView) findViewById(R.id.txtView);
+        mBtn = (Button) findViewById(R.id.fechaBtn);
 
-        this.fechaTxt.setOnClickListener(new View.OnClickListener() {
+        mBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Calendar cldr = Calendar.getInstance();
-                DatePickerDialog picker = new DatePickerDialog(MainActivity.this,
-                        new DatePickerDialog.OnDateSetListener() {
-                            @Override
-                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                                fechaTxt.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
-                            }
-                        }, cldr.get(Calendar.YEAR), cldr.get(Calendar.MONTH), cldr.get(Calendar.DAY_OF_MONTH));
-                picker.show();
+            c = Calendar.getInstance();
+            int dia = c.get(Calendar.DAY_OF_MONTH);
+            int mes = c.get(Calendar.MONTH);
+            int anio = c.get(Calendar.YEAR);
+
+            dpd = new DatePickerDialog(MainActivity.this, new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker view, int mAnio, int mMes, int mDia) {
+                    mTv.setText(mDia + "/" + (mMes+1)+ "/" + mAnio);
+                }
+            }, dia, mes, anio);
+            dpd.show();
             }
         });
+
+
 
         this.agregarBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
                 String valorString = valorTxt.getText().toString().trim();
                 String generoString = generoSpin.getSelectedItem().toString().trim();
                 String notaString = notaSpin.getSelectedItem().toString().trim();
-                String fechaString = fechaTxt.getText().toString().trim();
+                String fechaString = mTv.getText().toString().trim();
 
                 int valor = 0;
                 int calif = 0;

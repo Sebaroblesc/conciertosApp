@@ -8,4 +8,5 @@
     <string name="calificacion">Calificación</string>
     <string name="agregar">Registrar</string>
     <string name="guardadosList">Lista de Conciertos</string>
+    <string name="fechaBoton">Elegir Fecha</string>
 </resources>
