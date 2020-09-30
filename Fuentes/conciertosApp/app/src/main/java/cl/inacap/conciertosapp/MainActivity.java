@@ -4,17 +4,23 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.renderscript.ScriptGroup;
 import android.text.InputType;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -23,10 +29,10 @@ import java.util.Calendar;
 import java.util.List;
 
 import cl.inacap.conciertosapp.R;
+import cl.inacap.conciertosapp.dao.EventosDAO;
 import cl.inacap.conciertosapp.dto.Evento;
 
 public class MainActivity extends AppCompatActivity {
-
 
     private TextView mDisplayDate;
     private DatePickerDialog.OnDateSetListener onDateSetListener;
@@ -40,26 +46,40 @@ public class MainActivity extends AppCompatActivity {
     private Spinner generoSpin;
     private EditText valorTxt;
     private Spinner notaSpin;
-    private ListView conciertosList;
+
     private Button agregarBtn;
-    private List<Evento> eventos = new ArrayList<>();
+
+    private EventosDAO dao = new EventosDAO();
     String[] calif = {"1", "2", "3", "4", "5", "6", "7"};
     String[] generos = {"Rock", "Jazz", "Pop", "Reguetoon", "Salsa", "Metal"};
+    private ListView conciertosList;
+
+    private ArrayAdapter<Evento> adapter5;
+
+
 
     Calendar c;
     DatePickerDialog dpd;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        this.conciertosList = findViewById(R.id.conciertosList);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         this.nombreTxt = findViewById(R.id.nombreTxt);
         this.generoSpin = (Spinner) findViewById(R.id.generoSpin);
+
         this.valorTxt = findViewById(R.id.valorTxt);
         this.notaSpin = (Spinner) findViewById(R.id.notaSpin);
-        this.conciertosList = findViewById(R.id.conciertosList);
+
         this.agregarBtn = findViewById(R.id.agregarBtn);
+
+
+
 
         ArrayAdapter<String> adapter1 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, generos);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -68,6 +88,8 @@ public class MainActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, calif);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         notaSpin.setAdapter(adapter2);
+
+
 
         mTv = (TextView) findViewById(R.id.txtView);
         mBtn = (Button) findViewById(R.id.fechaBtn);
@@ -154,9 +176,11 @@ public class MainActivity extends AppCompatActivity {
                     e.setGenero(generoString);
                     e.setValor(valor);
                     e.setCalificacion(calif);
-                    eventos.add(e);
+                    dao.add(e);
 
 
+                    Toast.makeText(MainActivity.this,
+                            "Evento agregado!!", Toast.LENGTH_LONG).show();
                 } else {
                     verErrores(errores);
                 }
@@ -165,6 +189,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+
+
+
+
+
 
     private void verErrores(List<String> errores) {
         String msjError = "";
@@ -179,4 +209,8 @@ public class MainActivity extends AppCompatActivity {
                 .show();
 
     }
+
+
+
+
 }

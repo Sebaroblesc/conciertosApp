@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#FFFEFF</color>
+    <color name="colorPrimary">#FFFFFF</color>
+    <color name="colorLetra1">#000000</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+    <color name="colorDeFondo">#FFFFFF</color>
+    <color name="colorLista">#00adb5</color>
+    <color name="colorFondoLista">#FFFFFF</color>
+    <color name="colorLetra2">#000000</color>
 </resources>

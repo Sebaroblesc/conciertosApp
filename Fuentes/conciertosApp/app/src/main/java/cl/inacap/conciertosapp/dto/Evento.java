@@ -41,6 +41,11 @@ public class Evento {
         this.calificacion = calificacion;
     }
 
+    @Override
+    public String toString() {
+        return nombre + " " + fecha + " " + valor + " " + calificacion;
+    }
+
     private String nombre;
     private String fecha;
     private String genero;
