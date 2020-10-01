@@ -18,9 +18,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 
 import cl.inacap.conciertosapp.dao.EventosDAO;
 import cl.inacap.conciertosapp.dto.Evento;
@@ -32,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
     TextView mTv;
     Button mBtn;
+
 
 
     private EditText nombreTxt;
@@ -82,10 +86,17 @@ public class MainActivity extends AppCompatActivity {
         mBtn = (Button) findViewById(R.id.fechaBtn);
 
 
+
         mBtn.setOnClickListener(new View.OnClickListener() {
+
+
+
             @Override
             public void onClick(View v) {
-                c = Calendar.getInstance();
+
+                c = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+
+
                 int dia = c.get(Calendar.DAY_OF_MONTH);
                 int mes = c.get(Calendar.MONTH);
                 int anio = c.get(Calendar.YEAR);

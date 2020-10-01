@@ -4,176 +4,195 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    android:background="@color/colorPrimaryDark"
     android:orientation="vertical"
-    android:background="@color/colorDeFondo">
+    tools:context=".MainActivity">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@color/colorPrimary"
-        android:layout_marginTop="@dimen/marginTop1">
+        android:layout_marginTop="@dimen/marginTop1"
+        android:background="@color/colorPrimaryDark"
+        android:orientation="horizontal">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/nombre"
-            android:layout_weight="2"
-            android:textSize="@dimen/tamanioLetra1"
+            android:layout_weight="1"
             android:gravity="center"
-            android:textColor="@color/colorLetra1">
-        </TextView>
+            android:paddingLeft="5dp"
+            android:text="@string/nombre"
+            android:textAlignment="viewStart"
+            android:textColor="@color/colorIcons"
+            android:textSize="@dimen/tamanioLetra1"></TextView>
+
         <EditText
             android:id="@+id/nombreTxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:inputType="textPersonName"
+            android:textAlignment="center"
             android:textColor="@color/colorLetra1"></EditText>
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/marginTop1"
-        android:orientation="horizontal"
-        android:background="@color/colorPrimary">
+        android:background="@color/colorPrimaryDark"
+        android:orientation="horizontal">
 
         <Button
+            android:id="@+id/fechaBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/fechaBtn"
-            android:text="@string/fechaBoton"
-            android:layout_weight="2">
-        </Button>
+            android:layout_weight="2"
+            android:background="@color/colorDivider"
+            android:paddingLeft="5dp"
+            android:text="@string/fechaBoton"></Button>
+
         <TextView
-            android:textColor="@color/colorLetra1"
             android:id="@+id/txtView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:textColor="@color/colorLetra1">
 
         </TextView>
 
 
-
-
-
-
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/marginTop1"
+        android:background="@color/colorPrimaryDark"
         android:orientation="horizontal"
-        android:background="@color/colorPrimary"
 
         >
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:gravity="center"
             android:layout_weight="1"
-            android:textSize="@dimen/tamanioLetra1"
+            android:gravity="center"
+            android:paddingLeft="5dp"
             android:text="@string/genero"
-            android:textColor="@color/colorLetra1">
-        </TextView>
+            android:textAlignment="viewStart"
+            android:textColor="@color/colorIcons"
+            android:textSize="@dimen/tamanioLetra1"></TextView>
+
         <Spinner
             android:id="@+id/generoSpin"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:textColor="@color/colorLetra2"></Spinner>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/marginTop1"
-        android:orientation="horizontal"
-        android:background="@color/colorPrimary">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_weight="1"
-            android:textSize="@dimen/tamanioLetra1"
-            android:text="@string/valor"
-            android:textColor="@color/colorLetra1"></TextView>
-        <EditText
-            android:id="@+id/valorTxt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:layout_weight="1"
-            android:textColor="@color/colorLetra1"></EditText>
+            android:textColor="@color/colorLetra1"></Spinner>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/marginTop1"
-        android:orientation="horizontal"
-        android:background="@color/colorPrimary">
+        android:background="@color/colorPrimaryDark"
+        android:orientation="horizontal">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:layout_weight="1"
+            android:gravity="center"
+            android:paddingLeft="5dp"
+            android:text="@string/valor"
+            android:textAlignment="viewStart"
+            android:textColor="@color/colorIcons"
+            android:textSize="@dimen/tamanioLetra1"></TextView>
+
+        <EditText
+            android:id="@+id/valorTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="number"
+            android:textAlignment="center"
+            android:textColor="@color/colorLetra1"
+            android:textColorHighlight="@color/colorLetra1"></EditText>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginTop1"
+        android:background="@color/colorPrimaryDark"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingLeft="5dp"
             android:text="@string/calificacion"
-            android:textSize="@dimen/tamanioLetra1"
-            android:textColor="@color/colorLetra1"></TextView>
+            android:textAlignment="viewStart"
+            android:textColor="@color/colorIcons"
+            android:textSize="@dimen/tamanioLetra1"></TextView>
+
         <Spinner
             android:id="@+id/notaSpin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textColor="@color/colorLetra2"></Spinner>
+            android:textColor="@color/colorLetra1"></Spinner>
     </LinearLayout>
 
-    <LinearLayout
+
+        <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/marginTop1">
-        <Button
-            android:id="@+id/agregarBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/agregar"
-            android:textSize="@dimen/tamanioLetra1"
-            android:textColor="@color/colorLetra1"></Button>
+
+            <Button
+                android:id="@+id/agregarBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorDivider"
+                android:gravity="center"
+                android:text="@string/agregar"
+                android:textColor="@color/colorLetra1"
+                android:textSize="@dimen/tamanioLetra1">
+
+            </Button>
     </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/marginTop1"
-        android:orientation="vertical"
-        android:background="@color/colorFondoLista">
+        android:background="@color/colorIcons"
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="30dp"
+            android:background="@color/colorPrimary"
             android:gravity="center"
             android:text="@string/guardadosList"
+            android:textColor="@color/colorLetra1"
             android:textSize="@dimen/tamanioLetra2"
-            android:textColor="@color/colorAccent"
-            android:textStyle="bold"
-            ></TextView>
+            android:textStyle="bold"></TextView>
+
         <ListView
             android:id="@+id/conciertosList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary">
-        </ListView>
+            android:background="@color/colorPrimarylight"></ListView>
 
 
     </LinearLayout>
-
-
-
-
-
-
-
 </LinearLayout>
+
