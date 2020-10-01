@@ -4,31 +4,24 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
-import android.content.Context;
 import android.os.Bundle;
-import android.renderscript.ScriptGroup;
-import android.text.InputType;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import cl.inacap.conciertosapp.R;
 import cl.inacap.conciertosapp.dao.EventosDAO;
 import cl.inacap.conciertosapp.dto.Evento;
 
@@ -50,17 +43,14 @@ public class MainActivity extends AppCompatActivity {
     private Button agregarBtn;
 
     private EventosDAO dao = new EventosDAO();
+
     String[] calif = {"1", "2", "3", "4", "5", "6", "7"};
     String[] generos = {"Rock", "Jazz", "Pop", "Reguetoon", "Salsa", "Metal"};
     private ListView conciertosList;
-
-    private ArrayAdapter<Evento> adapter5;
-
-
+    AdaptadorLista adaptadorLista = new AdaptadorLista();
 
     Calendar c;
     DatePickerDialog dpd;
-
 
 
     @Override
@@ -75,10 +65,8 @@ public class MainActivity extends AppCompatActivity {
 
         this.valorTxt = findViewById(R.id.valorTxt);
         this.notaSpin = (Spinner) findViewById(R.id.notaSpin);
-
+        this.conciertosList = findViewById(R.id.conciertosList);
         this.agregarBtn = findViewById(R.id.agregarBtn);
-
-
 
 
         ArrayAdapter<String> adapter1 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, generos);
@@ -88,30 +76,29 @@ public class MainActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, calif);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         notaSpin.setAdapter(adapter2);
-
-
+        conciertosList.setAdapter(adaptadorLista);
 
         mTv = (TextView) findViewById(R.id.txtView);
         mBtn = (Button) findViewById(R.id.fechaBtn);
 
+
         mBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            c = Calendar.getInstance();
-            int dia = c.get(Calendar.DAY_OF_MONTH);
-            int mes = c.get(Calendar.MONTH);
-            int anio = c.get(Calendar.YEAR);
+                c = Calendar.getInstance();
+                int dia = c.get(Calendar.DAY_OF_MONTH);
+                int mes = c.get(Calendar.MONTH);
+                int anio = c.get(Calendar.YEAR);
 
-            dpd = new DatePickerDialog(MainActivity.this, new DatePickerDialog.OnDateSetListener() {
-                @Override
-                public void onDateSet(DatePicker view, int mAnio, int mMes, int mDia) {
-                    mTv.setText(mDia + "/" + (mMes+1)+ "/" + mAnio);
-                }
-            }, dia, mes, anio);
-            dpd.show();
+                dpd = new DatePickerDialog(MainActivity.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int mAnio, int mMes, int mDia) {
+                        mTv.setText(mDia + "/" + (mMes + 1) + "/" + mAnio);
+                    }
+                }, dia, mes, anio);
+                dpd.show();
             }
         });
-
 
 
         this.agregarBtn.setOnClickListener(new View.OnClickListener() {
@@ -177,13 +164,16 @@ public class MainActivity extends AppCompatActivity {
                     e.setValor(valor);
                     e.setCalificacion(calif);
                     dao.add(e);
+                    adaptadorLista.notifyDataSetChanged();
 
 
-                    Toast.makeText(MainActivity.this,
-                            "Evento agregado!!", Toast.LENGTH_LONG).show();
+
+                Toast.makeText(MainActivity.this,
+                     "Evento agregado!!", Toast.LENGTH_LONG).show();
                 } else {
                     verErrores(errores);
                 }
+
 
 
             }
@@ -191,10 +181,52 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    class AdaptadorLista extends BaseAdapter {
 
+        @Override
+        public int getCount() {
+            return dao.getAll().size();
+        }
 
+        @Override
+        public Object getItem(int position) {
+            return null;
+        }
 
+        @Override
+        public long getItemId(int position) {
+            return 0;
+        }
 
+        @Override
+        public View getView(int position, View view, ViewGroup parent) {
+            view = getLayoutInflater().inflate(R.layout.eventoslayout, null);
+
+            ImageView xImageView = view.findViewById(R.id.imageView);
+            TextView xTxtFecha = view.findViewById(R.id.textView2);
+            TextView xTxtNombre = view.findViewById(R.id.textView1);
+            TextView xTxtValor = view.findViewById(R.id.textView3);
+
+            int calif = dao.getAll().get(position).getCalificacion();
+
+            if (calif < 4) {
+                xImageView.setImageResource(R.drawable.homero_sad);
+            } else if (calif < 6) {
+                xImageView.setImageResource(R.drawable.homero_normal);
+
+            } else {
+                xImageView.setImageResource(R.drawable.homero_feliz);
+            }
+
+            xTxtFecha.setText(dao.getAll().get(position).getFecha());
+            xTxtNombre.setText(dao.getAll().get(position).getNombre());
+            xTxtValor.setText(Integer.toString(dao.getAll().get(position).getValor()));
+
+            return view;
+
+        }
+
+    }
 
     private void verErrores(List<String> errores) {
         String msjError = "";
@@ -209,8 +241,4 @@ public class MainActivity extends AppCompatActivity {
                 .show();
 
     }
-
-
-
-
 }
