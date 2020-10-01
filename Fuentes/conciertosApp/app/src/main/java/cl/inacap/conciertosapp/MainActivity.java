@@ -18,14 +18,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.time.Year;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 import java.util.TimeZone;
 
-import cl.inacap.conciertosapp.dao.EventosDAO;
+import cl.inacap.conciertosapp.adapters.AdaptadorLista;
+import cl.inacap.conciertosapp.dao.EventosDAOLista;
 import cl.inacap.conciertosapp.dto.Evento;
 
 public class MainActivity extends AppCompatActivity {
@@ -45,16 +44,19 @@ public class MainActivity extends AppCompatActivity {
     private Spinner notaSpin;
 
     private Button agregarBtn;
+    private EventosDAOLista edao = new EventosDAOLista();
 
-    private EventosDAO dao = new EventosDAO();
 
     String[] calif = {"1", "2", "3", "4", "5", "6", "7"};
     String[] generos = {"Rock", "Jazz", "Pop", "Reguetoon", "Salsa", "Metal"};
     private ListView conciertosList;
-    AdaptadorLista adaptadorLista = new AdaptadorLista();
+    private AdaptadorLista adaptadorLista;
 
     Calendar c;
     DatePickerDialog dpd;
+    int dia;
+    int mes;
+    int anio;
 
 
     @Override
@@ -77,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         generoSpin.setAdapter(adapter1);
 
+        adaptadorLista = new AdaptadorLista(this, R.layout.eventoslayout, edao.getAll());
         ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, calif);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         notaSpin.setAdapter(adapter2);
@@ -106,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onDateSet(DatePicker view, int mAnio, int mMes, int mDia) {
                         mTv.setText(mDia + "/" + (mMes + 1) + "/" + mAnio);
                     }
-                }, dia, mes, anio);
+                }, dia , mes, anio);
                 dpd.show();
             }
         });
@@ -174,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
                     e.setGenero(generoString);
                     e.setValor(valor);
                     e.setCalificacion(calif);
-                    dao.add(e);
+                    edao.add(e); 
                     adaptadorLista.notifyDataSetChanged();
 
 
@@ -192,52 +195,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    class AdaptadorLista extends BaseAdapter {
-
-        @Override
-        public int getCount() {
-            return dao.getAll().size();
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return null;
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return 0;
-        }
-
-        @Override
-        public View getView(int position, View view, ViewGroup parent) {
-            view = getLayoutInflater().inflate(R.layout.eventoslayout, null);
-
-            ImageView xImageView = view.findViewById(R.id.imageView);
-            TextView xTxtFecha = view.findViewById(R.id.textView2);
-            TextView xTxtNombre = view.findViewById(R.id.textView1);
-            TextView xTxtValor = view.findViewById(R.id.textView3);
-
-            int calif = dao.getAll().get(position).getCalificacion();
-
-            if (calif < 4) {
-                xImageView.setImageResource(R.drawable.homero_sad);
-            } else if (calif < 6) {
-                xImageView.setImageResource(R.drawable.homero_normal);
-
-            } else {
-                xImageView.setImageResource(R.drawable.homero_feliz);
-            }
-
-            xTxtFecha.setText(dao.getAll().get(position).getFecha());
-            xTxtNombre.setText(dao.getAll().get(position).getNombre());
-            xTxtValor.setText(Integer.toString(dao.getAll().get(position).getValor()));
-
-            return view;
-
-        }
-
-    }
 
     private void verErrores(List<String> errores) {
         String msjError = "";
